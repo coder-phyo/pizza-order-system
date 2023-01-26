@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Register Page')
+
 @section('content')
     <div class="login-form">
         <form action="" method="post">
@@ -27,7 +29,7 @@
         <div class="register-link">
             <p>
                 Already have account?
-                <a href="login.html">Sign In</a>
+                <a href="{{ url('/') }}">Sign In</a>
             </p>
         </div>
     </div>
