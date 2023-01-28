@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    Hello i'm admin category page
+    <h1>Hello i'm admin category page</h1>
+    <h3>Role - {{ Auth::user()->role }}</h3>
 
     <form action="{{ route('logout') }}" method="post">
         @csrf
