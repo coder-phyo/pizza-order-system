@@ -29,7 +29,7 @@
                     </div>
 
                     @if (session('createSuccess'))
-                        <div class="col-4 offset-8">
+                        <div class="col-5 offset-7">
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <i class="fa-solid fa-check"></i> {{ session('createSuccess') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -70,7 +70,7 @@
 
                     <div class="row mt-2">
                         <div class="col-1 offset-10 bg-white shadow-sm text-center py-1 rounded">
-                            <h3><i class="fa-solid fa-clipboard-list mr-2"></i> {{ $categories->total() }} </h3>
+                            <h4><i class="fa-solid fa-clipboard-list mr-2"></i> {{ $categories->total() }} </h4>
                         </div>
                     </div>
 
@@ -87,20 +87,22 @@
                                 <tbody>
                                     @foreach ($categories as $category)
                                         <tr class="tr-shadow my-5">
-                                            <td>{{ $category->category_id }}</td>
+                                            <td>{{ $category->id }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->created_at->format('j-F-Y') }}</td>
                                             <td>
                                                 <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    {{-- <button class="item" data-toggle="tooltip" data-placement="top"
                                                         title="View">
                                                         <i class="fa-solid fa-eye"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <a href="{{ route('category#delete', $category->category_id) }}">
+                                                    </button> --}}
+                                                    <a href="{{ route('category#edit', $category->id) }}" class="mr-3">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="{{ route('category#delete', $category->id) }}" class="mr-3">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>
