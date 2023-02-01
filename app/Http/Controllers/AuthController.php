@@ -51,8 +51,12 @@ class AuthController extends Controller
             User::where('id', Auth::user()->id)->update([
                 'password' => Hash::make($request->newPassword)
             ]);
-            Auth::logout();
-            return redirect()->route('category#list');
+            // Auth::logout();
+            // return redirect()->route('auth#loginPage');
+
+            // return redirect()->route('category#list');
+
+            return back()->with(['changeSuccess' => 'Password Change Success']);
         }
 
         return back()->with(['notMatch' => 'The Old Password doesn\'t Match.Try Again!']);
