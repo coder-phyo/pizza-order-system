@@ -50,7 +50,7 @@
                 <small class="text-danger">{{ $message }}</small @enderror </div>
 
                 <div class="form-group">
-                    <label>Password</label>
+                    <label>Confirm Password</label>
                     <input class="au-input au-input--full " type="password" name="password_confirmation"
                         placeholder="Confirm Password">
                     @error('password_confirmation')
