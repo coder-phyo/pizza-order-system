@@ -39,10 +39,16 @@ class AdminController extends Controller
         return back()->with(['notMatch' => 'The Old Password doesn\'t Match.Try Again!']);
     }
 
-    // derect admin detail page
+    // direct admin detail page
     public function detail()
     {
         return view('admin.account.detail');
+    }
+
+    // direct admin edit page
+    public function edit()
+    {
+        return view('admin.account.edit');
     }
 
     // password validation check

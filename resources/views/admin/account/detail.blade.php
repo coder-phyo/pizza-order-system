@@ -43,8 +43,10 @@
 
                             <div class="row">
                                 <div class="col-3 offset-2">
-                                    <button class="btn btn-dark text-white"><i class="fa-solid fa-pen-nib me-2"></i>Edit
-                                        Profile</button>
+                                    <a href="{{ route('admin#edit') }}">
+                                        <button class="btn btn-dark text-white"><i class="fa-solid fa-pen-nib me-2"></i>Edit
+                                            Profile</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

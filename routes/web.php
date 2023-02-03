@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
             // profile
             Route::get('details', [AdminController::class, 'detail'])->name('admin#details');
+            Route::get('edit', [AdminController::class, 'edit'])->name('admin#edit');
         });
     });
 

@@ -38,6 +38,7 @@
                             <hr>
                             <form action="{{ route('admin#changePassword') }}" method="post" novalidate="novalidate">
                                 @csrf
+
                                 <div class="form-group">
                                     <label for="cc-payment" class="control-label mb-1">Old Password</label>
                                     <input id="cc-pament" name="oldPassword" type="password"
