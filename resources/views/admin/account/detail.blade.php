@@ -5,6 +5,15 @@
 @section('content')
     <!-- MAIN CONTENT-->
     <div class="main-content">
+
+        @if (session('updateSuccess'))
+            <div class="col-4 offset-7">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-check"></i> {{ session('updateSuccess') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
         <div class="section__content section__content--p30">
             <div class="container-fluid">
 
@@ -22,7 +31,7 @@
                                     @if (Auth::user()->image === null)
                                         <img src="{{ asset('image/default_user.jpg') }}" class="shadow-sm img-thumbnail" />
                                     @else
-                                        <img src="{{ asset('admin/images/icon/avatar-big-06.jpg') }}"
+                                        <img src="{{ asset('storage/' . Auth::user()->image) }}"
                                             class="shadow-sm img-thumbnail" />
                                     @endif
                                 </div>
@@ -34,6 +43,8 @@
                                         {{ Auth::user()->email }}</h5>
                                     <h5 class="text-muted my-3"> <i class="fa-solid fa-phone-volume me-2"></i>
                                         {{ Auth::user()->phone }}</h5>
+                                    <h5 class="text-muted my-3"> <i class="fa-solid fa-venus-mars"></i>
+                                        {{ Auth::user()->gender }}</h5>
                                     <h5 class="text-muted my-3"> <i class="fa-solid fa-location-dot me-2"></i>
                                         {{ Auth::user()->address }}</h5>
                                     <h5 class="text-muted my-3"> <i class="fa-solid fa-user-clock me-2"></i>
