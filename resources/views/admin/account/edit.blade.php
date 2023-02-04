@@ -32,7 +32,14 @@
                                         @endif
 
                                         <div class="mt-3" style="width:230px">
-                                            <input type="file" name="image" class="w-100  form-control">
+                                            <input type="file" name="image"
+                                                class="w-100  form-control @error('image') is-invalid @enderror">
+                                            @error('image')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+
                                         </div>
 
                                         <div class="mt-2" style="width:230px">

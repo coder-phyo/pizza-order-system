@@ -62,6 +62,11 @@
                                 <i class="fas fa-chart-bar"></i>Category</a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('products#list') }}">
+                                <i class="fa-solid fa-pizza-slice"></i></i>Products</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>

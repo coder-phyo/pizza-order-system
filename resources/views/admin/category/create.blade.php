@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Category List Page')
+@section('title', 'Category Create Page')
 
 @section('content')
     <!-- MAIN CONTENT-->
