@@ -55,7 +55,7 @@
                             </h4>
                         </div>
                         <div class="col-3 offset-4">
-                            <form action="{{ route('category#list') }}" method="get" class="form-group">
+                            <form action="{{ route('products#list') }}" method="get" class="form-group">
                                 @csrf
                                 <div class="input-group">
                                     <input type="search" name="key" class="form-control" placeholder="Find..."
@@ -74,61 +74,68 @@
                         </div>
                     </div>
 
-
-                    <div class="table-responsive table-responsive-data2">
-                        <table class="table table-data2">
-                            <thead>
-                                <tr>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Category</th>
-                                    <th>View Count</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($pizzas as $p)
-                                    <tr class="tr-shadow my-5">
-                                        <td class="col-2"><img src="{{ asset('storage/' . $p->image) }}"
-                                                class="img-thumnail shadow-sm">
-                                        </td>
-                                        <td class="col-2">{{ $p->name }}</td>
-                                        <td class="col-2">{{ $p->price }}</td>
-                                        <td class="col-2">{{ $p->category_id }}</td>
-                                        <td class="col-2"><i class="fa-solid fa-eye me-2"></i>{{ $p->view_count }}</td>
-                                        <td class="col-2">
-                                            <div class="table-data-feature ms-3">
-                                                <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="View">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-                                                <a href="" class="ms-3">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="" class="ms-3">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </td>
+                    @if (count($pizzas) != 0)
+                        <div class="table-responsive table-responsive-data2">
+                            <table class="table table-data2">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Waiting Time</th>
+                                        <th>Category</th>
+                                        <th>View Count</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
 
-                            </tbody>
-                        </table>
+                                    @foreach ($pizzas as $p)
+                                        <tr class="tr-shadow my-5">
+                                            <td class="col-2"><img src="{{ asset('storage/' . $p->image) }}"
+                                                    class="img-thumnail shadow-sm">
+                                            </td>
+                                            <td class="col-2">{{ $p->name }}</td>
+                                            <td class="col-2">{{ $p->price }}</td>
+                                            <td class="col-2">{{ $p->waiting_time }}</td>
+                                            <td class="col-2">{{ $p->category_id }}</td>
+                                            <td class="col-2"><i class="fa-solid fa-eye me-2"></i>{{ $p->view_count }}
+                                            </td>
+                                            <td class="col-2">
+                                                <div class="table-data-feature ms-3">
+                                                    <a href="{{ route('products#edit', $p->id) }}">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="View">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="" class="ms-3">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="{{ route('products#delete', $p->id) }}" class="ms-3">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Delete">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                        <div class="mt-3">
+                                </tbody>
+                            </table>
+
+                            <div class="mt-3">
+                                {{ $pizzas->links() }}
+                            </div>
 
                         </div>
-
-                    </div>
-
+                    @else
+                        <h1 class="text-muted text-center m-5">There is no Pizzas Here!Please add...</h1>
+                    @endif
                     <!-- END DATA TABLE -->
                 </div>
             </div>
