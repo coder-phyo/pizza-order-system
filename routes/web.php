@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
             Route::post('create', [ProductController::class, 'create'])->name('products#create');
             Route::get('delete/{id}', [ProductController::class, 'delete'])->name('products#delete');
             Route::get('edit/{id}', [ProductController::class, 'edit'])->name('products#edit');
+            Route::get('updatePage/{id}', [ProductController::class, 'updatePage'])->name('products#updatePage');
+            Route::post('update', [ProductController::class, 'update'])->name('products#update');
         });
     });
 

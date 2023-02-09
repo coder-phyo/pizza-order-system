@@ -97,7 +97,7 @@
                                             <td class="col-2">{{ $p->name }}</td>
                                             <td class="col-2">{{ $p->price }}</td>
                                             <td class="col-2">{{ $p->waiting_time }}</td>
-                                            <td class="col-2">{{ $p->category_id }}</td>
+                                            <td class="col-2">{{ $p->category_name }}</td>
                                             <td class="col-2"><i class="fa-solid fa-eye me-2"></i>{{ $p->view_count }}
                                             </td>
                                             <td class="col-2">
@@ -108,7 +108,7 @@
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="" class="ms-3">
+                                                    <a href="{{ route('products#updatePage', $p->id) }}" class="ms-3">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Edit">
                                                             <i class="zmdi zmdi-edit"></i>

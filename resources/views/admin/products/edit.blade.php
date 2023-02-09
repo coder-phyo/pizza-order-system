@@ -52,7 +52,7 @@
                                         {{ $pizza->view_count }}</span>
                                     <span class=" my-3 btn btn-sm btn-dark text-white"> <i
                                             class="fa-solid fa-clone me-2"></i>
-                                        {{ $pizza->category_id }}</span>
+                                        {{ $pizza->category_name }}</span>
                                     <span class=" my-3 btn btn-sm btn-dark text-white"> <i
                                             class="fa-solid fs-5 fa-user-clock me-2"></i>
                                         {{ $pizza->created_at->format('j-F-Y') }}</span>
