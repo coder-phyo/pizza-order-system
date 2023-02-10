@@ -1,0 +1,149 @@
+@extends('admin.layouts.master')
+
+@section('title', 'Admin List Page')
+
+@section('content')
+    <!-- MAIN CONTENT-->
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <!-- DATA TABLE -->
+                    <div class="table-data__tool">
+                        <div class="table-data__tool-left">
+                            <div class="overview-wrap">
+                                <h2 class="title-1">Admin List</h2>
+
+                            </div>
+                        </div>
+                        <div class="table-data__tool-right">
+                            <a href="{{ route('category#createPage') }}">
+                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                    <i class="zmdi zmdi-plus"></i>add category
+                                </button>
+                            </a>
+                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                CSV download
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (session('createSuccess'))
+                        <div class="col-5 offset-7">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fa-solid fa-check"></i> {{ session('createSuccess') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('deleteSuccess'))
+                        <div class="col-5 offset-7">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <i class="fa-solid fa-circle-xmark"></i> {{ session('deleteSuccess') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
+
+
+                    <div class="row">
+                        <div class="col-5">
+                            <h4 class="text-muted">Search Key : <span class="text-danger">{{ request('key') }}</span>
+                            </h4>
+                        </div>
+                        <div class="col-3 offset-4">
+                            <form action="{{ route('admin#list') }}" method="get" class="form-group">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="search" name="key" class="form-control" placeholder="Find..."
+                                        value="{{ request('key') }}">
+                                    <button class="btn btn-dark text-white input-group-text">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-1 offset-10 bg-white shadow-sm text-center py-1 rounded">
+                            <h4><i class="fa-solid fa-clipboard-list mr-2">{{ $admin->total() }}</i></h4>
+                        </div>
+                    </div>
+
+                    {{-- @if (count($categories) != 0) --}}
+                    <div class="table-responsive table-responsive-data2">
+                        <table class="table table-data2">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Gender</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($admin as $a)
+                                    <tr class="tr-shadow my-5">
+                                        <td class="col-2 ">
+                                            @if ($a->image === null)
+                                                @if ($a->gender === 'male')
+                                                    <img src="{{ asset('image/default_user.jpg') }}"
+                                                        class="img-thumnail shadow-sm">
+                                                @else
+                                                    <img src="{{ asset('image/female_default.jfif') }}"
+                                                        class="img-thumnail shadow-sm">
+                                                @endif
+                                            @else
+                                                <img src="{{ asset('storage/' . $a->image) }}"
+                                                    class="img-thumnail shadow-sm">
+                                            @endif
+                                        </td>
+                                        <td class="">{{ $a->name }}</td>
+                                        <td class="">{{ $a->email }}</td>
+                                        <td class="">{{ $a->phone }}</td>
+                                        <td class="">{{ $a->gender }}</td>
+                                        <td class="">{{ $a->address }}</td>
+                                        <td>
+                                            <div class="table-data-feature ms-3">
+                                                @if (Auth::user()->id != $a->id)
+                                                    <a href="" class="me-1">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa-person-circle-minus"></i>
+
+                                                        </button>
+                                                    </a>
+                                                    <a href="{{ route('admin#delete', $a->id) }}" class="me-1">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Change Role">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+
+                        <div class="mt-3">
+                            {{ $admin->links() }}
+                            {{-- {{ $categories->appends(request()->query())->links() }} --}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT-->
+@endsection

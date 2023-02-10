@@ -24,8 +24,13 @@
                                 <div class="row">
                                     <div class="col-4">
                                         @if (Auth::user()->image === null)
-                                            <img src="{{ asset('image/default_user.jpg') }}"
-                                                class="shadow-sm img-thumbnail" />
+                                            @if (Auth::user()->gender === 'male')
+                                                <img src="{{ asset('image/default_user.jpg') }}"
+                                                    class="img-thumnail shadow-sm">
+                                            @else
+                                                <img src="{{ asset('image/female_default.jfif') }}"
+                                                    class="img-thumnail shadow-sm">
+                                            @endif
                                         @else
                                             <img src="{{ asset('storage/' . Auth::user()->image) }}"
                                                 class="shadow-sm img-thumbnail" />

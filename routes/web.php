@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
             Route::get('details', [AdminController::class, 'detail'])->name('admin#details');
             Route::get('edit', [AdminController::class, 'edit'])->name('admin#edit');
             Route::post('update/{id}', [AdminController::class, 'update'])->name('admin#update');
+
+            // admin list
+            Route::get('list', [AdminController::class, 'list'])->name('admin#list');
+            Route::get('delete/{id}', [AdminController::class, 'delete'])->name('admin#delete');
         });
 
         // products

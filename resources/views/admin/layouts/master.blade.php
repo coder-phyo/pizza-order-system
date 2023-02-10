@@ -134,7 +134,13 @@
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
                                             @if (Auth::user()->image === null)
-                                                <img src="{{ asset('image/default_user.jpg') }}" alt="John Doe" />
+                                                @if (Auth::user()->gender === 'male')
+                                                    <img src="{{ asset('image/default_user.jpg') }}"
+                                                        class="img-thumnail ">
+                                                @else
+                                                    <img src="{{ asset('image/female_default.jfif') }}"
+                                                        class="img-thumnail ">
+                                                @endif
                                             @else
                                                 <img src="{{ asset('storage/' . Auth::user()->image) }}"
                                                     alt="John Doe" />
@@ -148,8 +154,13 @@
                                                 <div class="image">
                                                     <a href="#">
                                                         @if (Auth::user()->image === null)
-                                                            <img src="{{ asset('image/default_user.jpg') }}"
-                                                                alt="John Doe" />
+                                                            @if (Auth::user()->gender === 'male')
+                                                                <img src="{{ asset('image/default_user.jpg') }}"
+                                                                    class="img-thumnail ">
+                                                            @else
+                                                                <img src="{{ asset('image/female_default.jfif') }}"
+                                                                    class="img-thumnail ">
+                                                            @endif
                                                         @else
                                                             <img src="{{ asset('storage/' . Auth::user()->image) }}"
                                                                 alt="John Doe" />
@@ -167,6 +178,12 @@
                                                 <div class="account-dropdown__item">
                                                     <a href="{{ route('admin#details') }}">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="{{ route('admin#list') }}">
+                                                        <i class="fa-solid fa-users"></i>Admin List</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
