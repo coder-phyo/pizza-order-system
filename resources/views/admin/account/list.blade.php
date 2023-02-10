@@ -70,7 +70,7 @@
 
                     <div class="row mt-2">
                         <div class="col-1 offset-10 bg-white shadow-sm text-center py-1 rounded">
-                            <h4><i class="fa-solid fa-clipboard-list mr-2">{{ $admin->total() }}</i></h4>
+                            <h4><i class="fa-solid fa-clipboard-list me-2"></i>{{ $admin->total() }}</h4>
                         </div>
                     </div>
 
@@ -113,16 +113,16 @@
                                         <td>
                                             <div class="table-data-feature ms-3">
                                                 @if (Auth::user()->id != $a->id)
-                                                    <a href="" class="me-1">
+                                                    <a href="{{ route('admin#changeRole', $a->id) }}" class="me-1">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Delete">
+                                                            title="Change Role">
                                                             <i class="fa-solid fa-person-circle-minus"></i>
 
                                                         </button>
                                                     </a>
                                                     <a href="{{ route('admin#delete', $a->id) }}" class="me-1">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Change Role">
+                                                            title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </button>
                                                     </a>

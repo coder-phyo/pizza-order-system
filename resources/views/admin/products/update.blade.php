@@ -12,9 +12,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="ms-5">
-
                                 <i class="fa-solid fa-arrow-left-long text-dark" onclick="history.back()"></i>
-
                             </div>
                             <div class="card-title">
                                 <h3 class="text-center title-2"> <i class="fa-solid fa-address-book me-2"></i> Update Pizza
