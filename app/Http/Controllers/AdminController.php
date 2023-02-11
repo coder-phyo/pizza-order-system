@@ -110,6 +110,7 @@ class AdminController extends Controller
     // change role
     public function change($id, Request $request)
     {
+        // User::where('id', $id)->update(['role' => $request->role]);
         $data = $this->requestUserData($request);
         User::where('id', $id)->update($data);
         return redirect()->route('admin#list');
