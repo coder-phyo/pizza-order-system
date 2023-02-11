@@ -1,14 +1,13 @@
-@extends('admin.layouts.master')
+@extends('user.layouts.master')
 
-@section('title', 'Account Edit')
+@section('title', 'Account Change')
 
 @section('content')
-    <!-- MAIN CONTENT-->
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
 
-                <div class="col-lg-10 offset-1">
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
@@ -138,5 +137,4 @@
             </div>
         </div>
     </div>
-    <!-- END MAIN CONTENT-->
 @endsection

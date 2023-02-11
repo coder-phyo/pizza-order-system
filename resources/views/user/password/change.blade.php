@@ -1,14 +1,13 @@
-@extends('admin.layouts.master')
+@extends('user.layouts.master')
 
-@section('title', 'Category List Page')
+@section('title', 'Password Change')
 
 @section('content')
-    <!-- MAIN CONTENT-->
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
 
-                <div class="col-lg-6 offset-3">
+                <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
@@ -36,7 +35,7 @@
                             @endif
 
                             <hr>
-                            <form action="{{ route('admin#changePassword') }}" method="post" novalidate="novalidate">
+                            <form action="{{ route('user#changePassword') }}" method="post" novalidate="novalidate">
                                 @csrf
 
                                 <div class="form-group">
@@ -77,7 +76,7 @@
 
                                 <div>
                                     <button id="payment-button" type="submit"
-                                        class="btn btn-lg btn-info btn-block text-white">
+                                        class="btn btn-lg btn-dark btn-block text-white">
                                         <i class="fa-solid fa-key me-2"></i>
                                         <span id="payment-button-amount">Change Password</span>
                                 </div>
@@ -88,5 +87,4 @@
             </div>
         </div>
     </div>
-    <!-- END MAIN CONTENT-->
 @endsection

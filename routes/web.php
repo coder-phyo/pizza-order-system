@@ -66,5 +66,16 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
 
         Route::get('home', [UserController::class, 'home'])->name('user#home');
+
+        // password
+        Route::prefix('password')->group(function () {
+            Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');
+            Route::post('change', [UserController::class, 'changePassword'])->name('user#changePassword');
+        });
+
+        // profile
+        Route::prefix('account')->group(function () {
+            Route::get('change', [UserController::class, 'accountChagePage'])->name('user#accountChagePage');
+        });
     });
 });
