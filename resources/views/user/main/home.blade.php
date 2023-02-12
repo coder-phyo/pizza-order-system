@@ -70,12 +70,16 @@
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Ascending</a>
+                                    <select value="sorting" id="sortingOption" class="btn btn-light dropdown-toggle"
+                                        data-toggle="dropdown">
+                                        <option value="">Choose Option...</option>
+                                        <option value="asc">Ascoending</option>
+                                        <option value="desc">Descending</option>
+                                    </select>
+                                    {{-- <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" id="ascending" href="#">Ascending</a>
                                         <a class="dropdown-item" href="#">Descending</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -83,7 +87,7 @@
 
                     @foreach ($pizza as $p)
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                            <div class="product-item bg-light mb-4">
+                            <div class="product-item bg-light mb-4" id="myForm">
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" style="height:220px"
                                         src="{{ asset('storage/' . $p->image) }}" alt="">
@@ -118,6 +122,50 @@
         </div>
         <!-- Shop Product End -->
     </div>
-    </div>
     <!-- Shop End -->
+@endsection
+
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            // $.ajax({
+            //     type: 'get',
+            //     url: 'http://127.0.0.1:8000/user/ajax/pizzaList',
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         console.log(response);
+            //     }
+            // })
+
+            $('#sortingOption').change(function() {
+                $eventOption = $('#sortingOption').val();
+
+                if ($eventOption === 'asc') {
+                    $.ajax({
+                        type: 'get',
+                        url: 'http://127.0.0.1:8000/user/ajax/pizzaList',
+                        data: {
+                            'status': 'asc'
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                } else if ($eventOption === 'desc') {
+                    $.ajax({
+                        type: 'get',
+                        url: 'http://127.0.0.1:8000/user/ajax/pizzaList',
+                        data: {
+                            'status': 'desc'
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                }
+            })
+        })
+    </script>
 @endsection
