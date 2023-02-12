@@ -16,8 +16,18 @@
                             </div>
                             <hr>
 
+                            @if (session('updateSuccess'))
+                                <div class="col-5 offset-5">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <i class="fa-solid fa-check"></i> {{ session('updateSuccess') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
 
-                            <form action="{{ route('admin#update', Auth::user()->id) }}" method="POST"
+
+                            <form action="{{ route('user#accountChange', Auth::user()->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">

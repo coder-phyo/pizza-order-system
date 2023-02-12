@@ -68,15 +68,15 @@
                             <a href="cart.html" class="nav-item nav-link">My Cart</a>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block me-5">
 
-                            <div class="dropdown me-5">
+                            <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    <i class="fa-solid fa-user text-warning"></i> {{ Auth::user()->name }}
+                                    <i class="fa-solid fa-user text-warning me-2"></i> {{ Auth::user()->name }}
                                 </button>
-                                <ul class=" dropdown-menu dropdown-menu-left">
-                                    <li><a class="dropdown-item my-3" href="{{ route('user#accountChagePage') }}"> <i
+                                <ul class=" dropdown-menu ">
+                                    <li><a class="dropdown-item my-3" href="{{ route('user#accountChangePage') }}"> <i
                                                 class="fa-solid fa-user-gear"></i> Account</a></li>
                                     <li><a class="dropdown-item my-3" href="{{ route('user#changePasswordPage') }}"> <i
                                                 class="fa-solid fa-lock"></i>
@@ -212,6 +212,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('user/js/main.js') }}"></script>
+
 </body>
 
 </html>

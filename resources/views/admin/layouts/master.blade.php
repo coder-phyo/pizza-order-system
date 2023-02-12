@@ -143,7 +143,7 @@
                                                 @endif
                                             @else
                                                 <img src="{{ asset('storage/' . Auth::user()->image) }}"
-                                                    alt="John Doe" />
+                                                    class="img-thumnail">
                                             @endif
                                         </div>
                                         <div class="content">

@@ -7,8 +7,10 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -46,6 +48,34 @@ class UserController extends Controller
         return back()->with(['notMatch' => 'The Old Password doesn\'t Match.Try Again!']);
     }
 
+    // account change page
+    public function accountChangePage()
+    {
+        return view('user.profile.account');
+    }
+
+    // account change
+    public function accountChange($id, Request $request)
+    {
+        $this->accountValidationCheck($request);
+        $data = $this->getUserData($request);
+
+        if ($request->hasFile('image')) {
+            $dbImage = User::where('id', $id)->first();
+            $dbImage = $dbImage->image;
+
+            if ($dbImage != null) {
+                Storage::delete('public/' . $dbImage);
+            }
+
+            $fileName = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public', $fileName);
+            $data['image'] = $fileName;
+        }
+        User::where('id', $id)->update($data);
+        return back()->with(['updateSuccess' => 'Account Updated Success...']);
+    }
+
     // password validation check
     private function passwordValidationCheck($request)
     {
@@ -56,9 +86,29 @@ class UserController extends Controller
         ])->validate();
     }
 
-    // account change page
-    public function accountChagePage()
+    // account validation check
+    private function accountValidationCheck($request)
     {
-        return view('user.profile.account');
+        Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'image' => 'mimes:png,jpg,jpeg,webp|file',
+            'address' => 'required'
+        ])->validate();
+    }
+
+    // get user data
+    private function getUserData($request)
+    {
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'updated_at' => Carbon::now()
+        ];
     }
 }
