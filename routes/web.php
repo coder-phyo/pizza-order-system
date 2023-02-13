@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('home', [UserController::class, 'home'])->name('user#home');
 
+        // filter
+        Route::get('filter/{id}', [UserController::class, 'filter'])->name('user#filter');
+
         // password
         Route::prefix('password')->group(function () {
             Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');

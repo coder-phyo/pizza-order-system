@@ -41,10 +41,21 @@
                             <label class="mt-2" for="price-all">Categories</label>
                             <span class="badge border font-weight-normal">{{ count($category) }}</span>
                         </div>
-                        @foreach ($category as $c)
-                            <div class=" custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <label class="" for="price-1">{{ $c->name }}</label>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 
+                            <a href="{{ route('user#home') }}" class="text-dark">
+                                {{-- <input type="checkbox" class="custom-control-input" id="{{ $c->id }}"> --}}
+                                <label class="" for="">All</label>
+                            </a>
+                        </div>
+                        @foreach ($category as $c)
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+
+                                <a href="{{ route('user#filter', $c->id) }}" class="text-dark">
+                                    {{-- <input type="checkbox" class="custom-control-input" id="{{ $c->id }}"> --}}
+                                    <label class="" for="">{{ $c->name }}</label>
+                                </a>
                             </div>
                         @endforeach
                     </form>
@@ -86,38 +97,43 @@
                     </div>
 
                     <div class="row" id="dataList">
-                        @foreach ($pizza as $p)
-                            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                                <div class="product-item bg-light mb-4">
-                                    <div class="product-img position-relative overflow-hidden">
-                                        <img class="img-fluid w-100" style="height:220px"
-                                            src="{{ asset('storage/' . $p->image) }}" alt="">
-                                        <div class="product-action">
-                                            <a class="btn btn-outline-dark btn-square" href=""><i
-                                                    class="fa fa-shopping-cart"></i></a>
-                                            <a class="btn btn-outline-dark btn-square" href=""><i
-                                                    class="fa-solid fa-circle-info"></i></a>
+                        @if (count($pizza) != 0)
+                            @foreach ($pizza as $p)
+                                <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                                    <div class="product-item bg-light mb-4">
+                                        <div class="product-img position-relative overflow-hidden">
+                                            <img class="img-fluid w-100" style="height:220px"
+                                                src="{{ asset('storage/' . $p->image) }}" alt="">
+                                            <div class="product-action">
+                                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                                        class="fa fa-shopping-cart"></i></a>
+                                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                                        class="fa-solid fa-circle-info"></i></a>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="text-center py-4">
-                                        <a class="h6 text-decoration-none text-truncate"
-                                            href="">{{ $p->name }}</a>
-                                        <div class="d-flex align-items-center justify-content-center mt-2">
-                                            <h5>{{ $p->price }} kyats</h5>
-                                            <h6 class="text-muted ml-2"><del>25000</del></h6>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-center mb-1">
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
+                                        <div class="text-center py-4">
+                                            <a class="h6 text-decoration-none text-truncate"
+                                                href="">{{ $p->name }}</a>
+                                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                                <h5>{{ $p->price }} kyats</h5>
+                                                <h6 class="text-muted ml-2"><del>25000</del></h6>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @else
+                            <h2 class="shadow-sm py-4 text-center col-6 offset-3 mt-5">There is no Pizza <i
+                                    class="fa-solid fa-pizza-slice ms-3"></i></h2>
+                        @endif
                     </div>
 
                 </div>

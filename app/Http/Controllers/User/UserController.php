@@ -23,6 +23,14 @@ class UserController extends Controller
         return view('user.main.home', compact('pizza', 'category'));
     }
 
+    // filter
+    public function filter($categoryId)
+    {
+        $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
+        $category = Category::get();
+        return view('user.main.home', compact('pizza', 'category'));
+    }
+
     // user change password page
     public function changePasswordPage()
     {
