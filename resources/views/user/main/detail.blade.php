@@ -32,6 +32,8 @@
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
                     <h3>{{ $pizza->name }}</h3>
+                    <input type="hidden" id="userId" value="{{ Auth::user()->id }}">
+                    <input type="hidden" id="pizzaId" value="{{ $pizza->id }}">
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
                             <small class="fas fa-star"></small>
@@ -51,14 +53,16 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                            <input type="text" id="orderCount" class="form-control bg-secondary border-0 text-center"
+                                value="1">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                        <button type="button" id="cartBtn" class="btn btn-primary px-3"><i
+                                class="fa fa-shopping-cart mr-1"></i> Add To
                             Cart</button>
                     </div>
                     <div class="d-flex pt-2">
@@ -117,7 +121,8 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="ms-2">{{ $pizza->view_count }} <i class="fa-solid fa-eye"></i></small>
+                                    <small class="ms-2">{{ $pizza->view_count }} <i
+                                            class="fa-solid fa-eye"></i></small>
                                 </div>
                             </div>
                         </div>
@@ -128,4 +133,31 @@
     </div>
     <!-- Products End -->
 
+@endsection
+
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            $('#cartBtn').click(function() {
+
+                $source = {
+                    'userId': $('#userId').val(),
+                    'pizzaId': $('#pizzaId').val(),
+                    'count': $('#orderCount').val(),
+                }
+
+                $.ajax({
+                    type: 'get',
+                    url: 'http://127.0.0.1:8000/user/ajax/addToCart',
+                    data: $source,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            window.location.href = "http://127.0.0.1:8000/user/home";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
