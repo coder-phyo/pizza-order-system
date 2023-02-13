@@ -72,6 +72,10 @@ Route::middleware('auth')->group(function () {
         // filter
         Route::get('filter/{id}', [UserController::class, 'filter'])->name('user#filter');
 
+        // details
+        Route::prefix('pizza')->group(function () {
+            Route::get('details/{id}', [UserController::class, 'pizzaDetails'])->name('user#pizzaDetails');
+        });
         // password
         Route::prefix('password')->group(function () {
             Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');

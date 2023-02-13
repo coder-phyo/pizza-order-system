@@ -23,14 +23,6 @@ class UserController extends Controller
         return view('user.main.home', compact('pizza', 'category'));
     }
 
-    // filter
-    public function filter($categoryId)
-    {
-        $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
-        $category = Category::get();
-        return view('user.main.home', compact('pizza', 'category'));
-    }
-
     // user change password page
     public function changePasswordPage()
     {
@@ -83,6 +75,23 @@ class UserController extends Controller
         User::where('id', $id)->update($data);
         return back()->with(['updateSuccess' => 'Account Updated Success...']);
     }
+
+    // filter
+    public function filter($categoryId)
+    {
+        $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
+        $category = Category::get();
+        return view('user.main.home', compact('pizza', 'category'));
+    }
+
+    // direct pizza details
+    public function pizzaDetails($pizzaId)
+    {
+        $pizza = Product::where('id', $pizzaId)->first();
+        $pizzaAll = Product::get();
+        return view('user.main.detail', compact('pizza', 'pizzaAll'));
+    }
+
 
     // password validation check
     private function passwordValidationCheck($request)
