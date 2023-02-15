@@ -42,7 +42,7 @@
                                     </div>
                                 </td>
                                 <td class="align-middle" id="total">{{ $c->pizza_price * $c->qty }} ks</td>
-                                <td class="align-middle"><button class="btn btn-sm btn-danger"><i
+                                <td class="align-middle"><button class="btn btn-sm btn-danger btnRemove"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
                         @endforeach
@@ -56,7 +56,7 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>{{ $totalPrice }} kyats</h6>
+                            <h6 id="subTotal">{{ $totalPrice }} kyats</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Delivery fee</h6>
@@ -86,8 +86,8 @@
                 $qty = parseInt($parentNode.find('#qty').val());
 
                 $total = $price * $qty;
-                console.log($total);
                 $parentNode.find('#total').html($total + " ks");
+
             })
 
             $('.btn-minus').click(function() {
@@ -96,8 +96,11 @@
                 $qty = parseInt($parentNode.find('#qty').val());
 
                 $total = $price * $qty;
-                console.log($total);
                 $parentNode.find('#total').html($total + " ks");
+            })
+
+            $('.btnRemove').click(function() {
+                $(this).parents('tr').remove();
             })
         });
     </script>
