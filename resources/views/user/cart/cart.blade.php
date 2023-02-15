@@ -3,8 +3,6 @@
 @section('title', 'Cart List')
 
 @section('content')
-
-
     <!-- Cart Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -22,6 +20,7 @@
                     <tbody class="align-middle">
                         @foreach ($cartList as $c)
                             <tr>
+                                <input type="hidden" value="{{ $c->pizza_price }}" id="price">
                                 <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">
                                     {{ $c->pizza_name }}</td>
                                 <td class="align-middle">{{ $c->pizza_price }} ks</td>
@@ -34,7 +33,7 @@
                                         </div>
                                         <input type="text"
                                             class="form-control form-control-sm bg-secondary border-0 text-center"
-                                            value="{{ $c->qty }}">
+                                            id="qty" value="{{ $c->qty }}">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-primary btn-plus">
                                                 <i class="fa fa-plus"></i>
@@ -42,7 +41,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle">{{ $c->pizza_price * $c->qty }} ks</td>
+                                <td class="align-middle" id="total">{{ $c->pizza_price * $c->qty }} ks</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
@@ -76,7 +75,30 @@
         </div>
     </div>
     <!-- Cart End -->
+@endsection
 
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            $('.btn-plus').click(function() {
+                $parentNode = $(this).parents('tr');
+                $price = parseInt($parentNode.find('#price').val());
+                $qty = parseInt($parentNode.find('#qty').val());
 
+                $total = $price * $qty;
+                console.log($total);
+                $parentNode.find('#total').html($total + " ks");
+            })
 
+            $('.btn-minus').click(function() {
+                $parentNode = $(this).parents('tr');
+                $price = parseInt($parentNode.find('#price').val());
+                $qty = parseInt($parentNode.find('#qty').val());
+
+                $total = $price * $qty;
+                console.log($total);
+                $parentNode.find('#total').html($total + " ks");
+            })
+        });
+    </script>
 @endsection
