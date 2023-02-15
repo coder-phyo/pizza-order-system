@@ -1,25 +1,3 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>User Home Page</h1>
-    <h3>Role - {{ Auth::user()->role }}</h3>
-
-    <form action="{{ route('logout') }}" method="post">
-        @csrf
-        <input type="submit" value="Logout">
-    </form>
-</body>
-
-</html> --}}
-
 @extends('user.layouts.master')
 
 @section('title', 'Home Page')
@@ -156,20 +134,19 @@
 @section('scriptSource')
     <script>
         $(document).ready(function() {
+            $("#sortingOption").change(function() {
+                $eventOption = $("#sortingOption").val();
 
-            $('#sortingOption').change(function() {
-                $eventOption = $('#sortingOption').val();
-
-                if ($eventOption === 'asc') {
+                if ($eventOption === "asc") {
                     $.ajax({
-                        type: 'get',
-                        url: 'http://127.0.0.1:8000/user/ajax/pizzaList',
+                        type: "get",
+                        url: "http://127.0.0.1:8000/user/ajax/pizzaList",
                         data: {
-                            'status': 'asc'
+                            status: "asc",
                         },
-                        dataType: 'json',
+                        dataType: "json",
                         success: function(response) {
-                            $list = '';
+                            $list = "";
 
                             $.each(response, function(index, value) {
                                 $list += `
@@ -206,19 +183,19 @@
                                 `;
                             });
 
-                            $('#dataList').html($list);
-                        }
+                            $("#dataList").html($list);
+                        },
                     });
-                } else if ($eventOption === 'desc') {
+                } else if ($eventOption === "desc") {
                     $.ajax({
-                        type: 'get',
-                        url: 'http://127.0.0.1:8000/user/ajax/pizzaList',
+                        type: "get",
+                        url: "http://127.0.0.1:8000/user/ajax/pizzaList",
                         data: {
-                            'status': 'desc'
+                            status: "desc",
                         },
-                        dataType: 'json',
+                        dataType: "json",
                         success: function(response) {
-                            $list = '';
+                            $list = "";
 
                             $.each(response, function(index, value) {
                                 $list += `
@@ -255,11 +232,11 @@
                                 `;
                             });
 
-                            $('#dataList').html($list);
-                        }
+                            $("#dataList").html($list);
+                        },
                     });
                 }
-            })
-        })
+            });
+        });
     </script>
 @endsection

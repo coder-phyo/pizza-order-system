@@ -17,13 +17,12 @@
                             <th>Remove</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle">
+                    <tbody class="align-middle" id="dataTable">
                         @foreach ($cartList as $c)
                             <tr>
-                                <input type="hidden" value="{{ $c->pizza_price }}" id="price">
                                 <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">
                                     {{ $c->pizza_name }}</td>
-                                <td class="align-middle">{{ $c->pizza_price }} ks</td>
+                                <td class="align-middle" id="price">{{ $c->pizza_price }} ks</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
                                         <div class="input-group-btn">
@@ -66,7 +65,7 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>{{ $totalPrice + 3000 }} kyats</h5>
+                            <h5 id="finalPrice">{{ $totalPrice + 3000 }} kyats</h5>
                         </div>
                         <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
                     </div>
@@ -78,30 +77,5 @@
 @endsection
 
 @section('scriptSource')
-    <script>
-        $(document).ready(function() {
-            $('.btn-plus').click(function() {
-                $parentNode = $(this).parents('tr');
-                $price = parseInt($parentNode.find('#price').val());
-                $qty = parseInt($parentNode.find('#qty').val());
-
-                $total = $price * $qty;
-                $parentNode.find('#total').html($total + " ks");
-
-            })
-
-            $('.btn-minus').click(function() {
-                $parentNode = $(this).parents('tr');
-                $price = parseInt($parentNode.find('#price').val());
-                $qty = parseInt($parentNode.find('#qty').val());
-
-                $total = $price * $qty;
-                $parentNode.find('#total').html($total + " ks");
-            })
-
-            $('.btnRemove').click(function() {
-                $(this).parents('tr').remove();
-            })
-        });
-    </script>
+    <script src="{{ asset('jquery/cart.js') }}"></script>
 @endsection
