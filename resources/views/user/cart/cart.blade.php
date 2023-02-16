@@ -20,7 +20,8 @@
                     <tbody class="align-middle" id="dataTable">
                         @foreach ($cartList as $c)
                             <tr>
-                                <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">
+                                <td class="align-middle"><img src="{{ asset('storage/' . $c->pizza_Image) }}" class="me-3"
+                                        style="width: 60px;">
                                     {{ $c->pizza_name }}</td>
                                 <td class="align-middle" id="price">{{ $c->pizza_price }} ks</td>
                                 <td class="align-middle">
@@ -40,7 +41,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle" id="total">{{ $c->pizza_price * $c->qty }} ks</td>
+                                <td class="align-middle col-3" id="total">{{ $c->pizza_price * $c->qty }} ks</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger btnRemove"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>

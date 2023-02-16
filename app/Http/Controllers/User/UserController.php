@@ -98,7 +98,7 @@ class UserController extends Controller
     // cart list
     public function cartList()
     {
-        $cartList = Cart::select('carts.*', 'products.name as pizza_name', 'products.price as pizza_price')
+        $cartList = Cart::select('carts.*', 'products.name as pizza_name', 'products.price as pizza_price', 'products.image as pizza_Image')
             ->leftJoin('products', 'products.id', 'carts.product_id')
             ->where('carts.user_id', Auth::user()->id)
             ->get();
