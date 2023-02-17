@@ -70,7 +70,7 @@ class UserController extends Controller
                 Storage::delete('public/' . $dbImage);
             }
 
-            $fileName = $request->file('image')->getClientOriginalName();
+            $fileName = uniqid() . $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('public', $fileName);
             $data['image'] = $fileName;
         }
@@ -102,7 +102,6 @@ class UserController extends Controller
             ->leftJoin('products', 'products.id', 'carts.product_id')
             ->where('carts.user_id', Auth::user()->id)
             ->get();
-
         $totalPrice = 0;
         foreach ($cartList as $c) {
             $totalPrice += $c->pizza_price * $c->qty;

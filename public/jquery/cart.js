@@ -32,7 +32,7 @@ $(document).ready(function () {
     // calculate final price for order
     function summaryCalculation() {
         $totalPrice = 0;
-        $("#dataTable tr").each(function (index, row) {
+        $("#dataTable tbody tr").each(function (index, row) {
             $totalPrice += parseInt(
                 $(row).find("#total").text().replace("ks", "")
             );

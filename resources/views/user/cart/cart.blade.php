@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
+                <table class="table table-light table-borderless table-hover text-center mb-0" id="dataTable">
                     <thead class="thead-dark">
                         <tr>
                             <th>Products</th>
@@ -17,12 +17,15 @@
                             <th>Remove</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle" id="dataTable">
+                    <tbody class="align-middle">
                         @foreach ($cartList as $c)
                             <tr>
-                                <td class="align-middle"><img src="{{ asset('storage/' . $c->pizza_Image) }}" class="me-3"
-                                        style="width: 60px;">
-                                    {{ $c->pizza_name }}</td>
+                                <td class="align-middle">
+                                    <img src="{{ asset('storage/' . $c->pizza_Image) }}" class="me-3" style="width: 60px;">
+                                    {{ $c->pizza_name }}
+                                    <input type="hidden" class="productId" value="{{ $c->product_id }}">
+                                    <input type="hidden" class="userId" value="{{ $c->user_id }}">
+                                </td>
                                 <td class="align-middle" id="price">{{ $c->pizza_price }} ks</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -68,7 +71,8 @@
                             <h5>Total</h5>
                             <h5 id="finalPrice">{{ $totalPrice + 3000 }} kyats</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="orderBtn">Proceed To
+                            Checkout</button>
                     </div>
                 </div>
             </div>
@@ -79,4 +83,31 @@
 
 @section('scriptSource')
     <script src="{{ asset('jquery/cart.js') }}"></script>
+    <script>
+        $('#orderBtn').click(function() {
+            $orderList = [];
+            $random = Math.floor(Math.random() * 1000000001);
+            $(' tbody tr').each(function(index, row) {
+
+                $orderList.push({
+                    'user_id': $(row).find('.userId').val(),
+                    'product_id': $(row).find('.productId').val(),
+                    'qty': $(row).find('#qty').val(),
+                    'total': $(row).find('#total').text().replace('ks', '') * 1,
+                    'order_code': 'POS' + $random
+                });
+            })
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:8000/user/ajax/order",
+                data: Object.assign({}, $orderList),
+                dataType: "json",
+                success: function(response) {
+                    if (response.status === 'true') {
+                        window.location.href = "http://127.0.0.1:8000/user/home";
+                    }
+                },
+            });
+        })
+    </script>
 @endsection

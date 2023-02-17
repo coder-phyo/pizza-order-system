@@ -4,9 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderList;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
@@ -34,6 +37,28 @@ class AjaxController extends Controller
         ];
 
         return response()->json($response, 200);
+    }
+
+    // order
+    public function order(Request $request)
+    {
+        $total = 0;
+        foreach ($request->all() as $item) {
+            $data =  OrderList::create($item);
+            $total += $data->total;
+        }
+
+        Cart::where('user_id', Auth::user()->id)->delete();
+        Order::create([
+            'user_id' => Auth::user()->id,
+            'order_code' => $data->order_code,
+            'total_price' => $total + 3000,
+        ]);
+
+        return response()->json([
+            'status' => "true",
+            'message' => "order completed"
+        ], 200);
     }
 
     // get order data
