@@ -35,9 +35,13 @@
                                         @if (Auth::user()->image === null)
                                             @if (Auth::user()->gender === 'male')
                                                 <img src="{{ asset('image/default_user.jpg') }}"
+                                                    style="width
+                                                :400px"
                                                     class="img-thumnail shadow-sm">
                                             @else
                                                 <img src="{{ asset('image/female_default.jfif') }}"
+                                                    style="width
+                                                :400px;height:100px;"
                                                     class="img-thumnail shadow-sm">
                                             @endif
                                         @else
@@ -62,7 +66,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row col-6 offset-1">
+                                    <div class="col-6 offset-1">
                                         <div class="form-group">
                                             <label for="name" class="control-label mb-1">Name</label>
                                             <input id="name" name="name" type="text"

@@ -6,8 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\AjaxController;
 use App\Http\Controllers\User\UserController;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+
 
 // login , register
 Route::middleware('admin_auth')->group(function () {
