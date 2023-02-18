@@ -23,6 +23,7 @@
                                 <td class="align-middle">
                                     <img src="{{ asset('storage/' . $c->pizza_Image) }}" class="me-3" style="width: 60px;">
                                     {{ $c->pizza_name }}
+                                    <input type="hidden" class="orderId" value="{{ $c->id }}">
                                     <input type="hidden" class="productId" value="{{ $c->product_id }}">
                                     <input type="hidden" class="userId" value="{{ $c->user_id }}">
                                 </td>
@@ -73,6 +74,8 @@
                         </div>
                         <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="orderBtn">Proceed To
                             Checkout</button>
+                        <button class="btn btn-block btn-danger font-weight-bold my-3 py-3" id="clearBtn">Clear
+                            Cart</button>
                     </div>
                 </div>
             </div>
@@ -109,5 +112,44 @@
                 },
             });
         })
+
+        // when clear button click
+        $('#clearBtn').click(function() {
+            $.ajax({
+                type: 'get',
+                url: "http://127.0.0.1:8000/user/ajax/clear/cart",
+            })
+            $('#dataTable tbody tr').remove();
+            $('#subTotal').html("0 kyats");
+            $('#finalPrice').html('3000 kyats');
+        })
+
+        // when cross button click remobe current product
+        $(".btnRemove").click(function() {
+            $parentNode = $(this).parents("tr");
+            $productId = $parentNode.find(".productId").val();
+            $orderId = $parentNode.find(".orderId").val();
+
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:8000/user/ajax/clear/current/product",
+                data: {
+                    productId: $productId,
+                    orderId: $orderId
+                },
+                dataType: "json",
+            })
+
+            $parentNode.remove();
+            $totalPrice = 0;
+            $("#dataTable tbody tr").each(function(index, row) {
+                $totalPrice += parseInt(
+                    $(row).find("#total").text().replace("ks", "")
+                );
+            });
+
+            $("#subTotal").html(`${$totalPrice} kyats`);
+            $("#finalPrice").html(`${$totalPrice + 3000} kyats`);
+        });
     </script>
 @endsection

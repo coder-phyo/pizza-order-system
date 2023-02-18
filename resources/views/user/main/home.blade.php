@@ -53,13 +53,23 @@
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="shadow-sm">
-                                <a href="{{ route('user#cartList') }}">
+                            <div>
+                                <a href="{{ route('user#cartList') }}" class="shadow-sm">
                                     <button type="button" class="btn btn-light position-relative fs-5">
                                         <i class="fa-solid fa-cart-plus"></i>
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                             {{ count($cart) }}
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </button>
+                                </a>
+                                <a href="{{ route('user#history') }}" class="ms-4 shadow-sm">
+                                    <button type="button" class="btn btn-light position-relative fs-5">
+                                        <i class="fa-solid fa-clock-rotate-left"></i> history
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{ count($history) }}
                                             <span class="visually-hidden">unread messages</span>
                                         </span>
                                     </button>

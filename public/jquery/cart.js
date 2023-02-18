@@ -23,12 +23,6 @@ $(document).ready(function () {
         summaryCalculation();
     });
 
-    // when cross button click
-    $(".btnRemove").click(function () {
-        $(this).parents("tr").remove();
-        summaryCalculation();
-    });
-
     // calculate final price for order
     function summaryCalculation() {
         $totalPrice = 0;
