@@ -33,19 +33,6 @@
 </head>
 
 <body>
-    <!-- Topbar Start -->
-    {{-- <div class="container-fluid">
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-            <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
-
-
-                </a>
-            </div>
-        </div>
-    </div> --}}
-    <!-- Topbar End -->
-
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">

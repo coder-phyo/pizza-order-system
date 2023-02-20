@@ -67,6 +67,12 @@
                                 <i class="fa-solid fa-pizza-slice"></i></i>Products</a>
                         </li>
 
+
+                        <li>
+                            <a href="{{ route('admin#orderList') }}">
+                                <i class="fa-solid fa-list-check"></i>Order List</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
@@ -241,7 +247,13 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
 
+    {{-- jquery cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
+@yield('scriptSection')
 
 </html>
 <!-- end document-->
