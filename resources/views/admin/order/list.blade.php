@@ -64,13 +64,14 @@
 
                                     @foreach ($order as $o)
                                         <tr class="tr-shadow my-5">
+                                            <input type="hidden" class="orderId" value="{{ $o->id }}">
                                             <td>{{ $o->user_id }}</td>
                                             <td>{{ $o->user_name }}</td>
                                             <td>{{ $o->created_at->format('F-j-Y') }}</td>
                                             <td>{{ $o->order_code }}</td>
-                                            <td>{{ $o->total_price }} kyats</td>
+                                            <td class="amount">{{ $o->total_price }} kyats</td>
                                             <td>
-                                                <select name="status" id="status" class="form-select">
+                                                <select name="status" class="form-select changeStatus">
                                                     <option value="0"
                                                         @if ($o->status === 0) selected @endif>
                                                         Pending</option>
@@ -128,26 +129,36 @@
                     type: "get",
                     url: "http://127.0.0.1:8000/order/ajax/status",
                     data: {
-                        'status': $orderStatus
+                        status: $orderStatus
                     },
                     dataType: "json",
                     success: function(response) {
                         $list = "";
                         $.each(response, function(index, item) {
+
+                            $dbDate = new Date(item.created_at);
+                            $months = ['January', 'February', 'March', 'April', 'May',
+                                'June', 'July', 'August', 'September', 'October',
+                                'November', 'December'
+                            ]
+                            $finalDate = $months[$dbDate.getMonth()] + "-" + $dbDate
+                                .getDate() + "-" + $dbDate.getFullYear();
+
                             $list += `
                             <tr class="tr-shadow my-5">
+                                 <input type="hidden" class="orderId" value="${item.id}">
                                 <td>${item.user_id}</td>
                                 <td>${item.user_name}</td>
-                                <td>${ item.created_at }</td>
+                                <td>${$finalDate }</td>
                                 <td>${ item.order_code }</td>
                                 <td>${ item.total_price } kyats</td>
                                 <td>
-                                    <select name="status" id="status" class="form-select">
-                                        <option value="${item.status}" ${item.status === 0 ? "selected" : ""}>
+                                    <select name="status" id="status" class="form-select changeStatus">
+                                        <option value="1" ${item.status === 0 ? "selected" : ""}>
                                             Pending</option>
-                                        <option value="${item.status}" ${item.status === 1 ? "selected" : ""}>
+                                        <option value="2" ${item.status === 1 ? "selected" : ""}>
                                             Accept</option>
-                                        <option value="${item.status}" ${item.status === 2 ? "selected" : ""}>
+                                        <option value="3" ${item.status === 2 ? "selected" : ""}>
                                             Reject</option>
                                     </select>
                                 </td>
@@ -155,6 +166,27 @@
                             `;
                         })
                         $('tbody').html($list);
+                    }
+                })
+            })
+
+            $('.changeStatus').change(function() {
+                $currentStatus = $(this).val();
+                $parentNode = $(this).parents("tr");
+                $orderId = $parentNode.find(".orderId").val();
+
+                $data = {
+                    status: $currentStatus,
+                    orderId: $orderId
+                };
+
+                $.ajax({
+                    type: "get",
+                    url: "http://127.0.0.1:8000/order/ajax/change/status",
+                    data: $data,
+                    dataType: "json",
+                    success: function(response) {
+
                     }
                 })
             })
