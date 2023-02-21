@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
             Route::get('delete/{id}', [AdminController::class, 'delete'])->name('admin#delete');
             Route::get('changeRole/{id}', [AdminController::class, 'changeRole'])->name('admin#changeRole');
             Route::post('change/role/{id}', [AdminController::class, 'change'])->name('admin#change');
+
+            // change role with ajax
+            Route::get('ajax/change/role', [AdminController::class, 'ajaxChangeRole'])->name('admin#ajaxChangeRole');
         });
 
         // products

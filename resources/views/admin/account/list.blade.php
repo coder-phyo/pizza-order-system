@@ -105,6 +105,7 @@
                                                     class="img-thumnail shadow-sm">
                                             @endif
                                         </td>
+                                        <input type="hidden" class="userId" value="{{ $a->id }}">
                                         <td class="">{{ $a->name }}</td>
                                         <td class="">{{ $a->email }}</td>
                                         <td class="">{{ $a->phone }}</td>
@@ -113,6 +114,15 @@
                                         <td>
                                             <div class="table-data-feature ms-3">
                                                 @if (Auth::user()->id != $a->id)
+                                                    <select name="status" class="form-select changeRole me-3">
+                                                        <option value="admin"
+                                                            @if ($a->role === 'admin') selected @endif>
+                                                            Admin</option>
+                                                        <option value="user"
+                                                            @if ($a->role === 'user') selected @endif>
+                                                            User</option>
+
+                                                    </select>
                                                     <a href="{{ route('admin#changeRole', $a->id) }}" class="me-1">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Change Role">
@@ -146,4 +156,31 @@
         </div>
     </div>
     <!-- END MAIN CONTENT-->
+@endsection
+
+@section('scriptSection')
+    <script>
+        $(document).ready(function() {
+            $('.changeRole').change(function() {
+                $role = $(this).val();
+                $parentNode = $(this).parents('tr');
+                $userId = $parentNode.find('.userId').val();
+
+                $data = {
+                    userId: $userId,
+                    role: $role
+                };
+
+                $.ajax({
+                    type: "get",
+                    url: "http://127.0.0.1:8000/admin/ajax/change/role",
+                    data: $data,
+                    dataType: "json",
+                })
+
+                location.reload();
+
+            })
+        })
+    </script>
 @endsection
