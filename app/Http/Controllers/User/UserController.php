@@ -119,7 +119,6 @@ class UserController extends Controller
         return view('user.main.history', compact('order'));
     }
 
-
     // password validation check
     private function passwordValidationCheck($request)
     {

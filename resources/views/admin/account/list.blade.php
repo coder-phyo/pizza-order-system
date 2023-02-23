@@ -9,31 +9,12 @@
             <div class="container-fluid">
                 <div class="col-md-12">
                     <!-- DATA TABLE -->
-                    <div class="table-data__tool">
-                        <div class="table-data__tool-left">
-                            <div class="overview-wrap">
-                                <h2 class="title-1">Admin List</h2>
-
-                            </div>
-                        </div>
-                        <div class="table-data__tool-right">
-                            <a href="{{ route('category#createPage') }}">
-                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                    <i class="zmdi zmdi-plus"></i>add category
-                                </button>
-                            </a>
-                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                CSV download
-                            </button>
-                        </div>
-                    </div>
 
                     @if (session('createSuccess'))
                         <div class="col-5 offset-7">
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <i class="fa-solid fa-check"></i> {{ session('createSuccess') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                     @endif
@@ -179,7 +160,6 @@
                 })
 
                 location.reload();
-
             })
         })
     </script>
