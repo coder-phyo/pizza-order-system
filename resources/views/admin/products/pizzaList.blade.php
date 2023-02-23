@@ -92,7 +92,7 @@
                                     @foreach ($pizzas as $p)
                                         <tr class="tr-shadow my-5">
                                             <td class="col-2"><img src="{{ asset('storage/' . $p->image) }}"
-                                                    class="img-thumnail shadow-sm">
+                                                    class="img-thumbnail shadow-sm">
                                             </td>
                                             <td class="col-2">{{ $p->name }}</td>
                                             <td class="col-2">{{ $p->price }}</td>

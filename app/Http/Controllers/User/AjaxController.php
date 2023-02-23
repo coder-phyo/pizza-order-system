@@ -30,6 +30,7 @@ class AjaxController extends Controller
     public function addToCart(Request $request)
     {
         $data = $this->getOrderData($request);
+        logger($data);
         Cart::create($data);
         $response = [
             'message' => 'Add To Cart Complete',

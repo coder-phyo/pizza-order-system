@@ -28,25 +28,26 @@
                         </div>
                     </div>
 
-                    <div class="row mt-2">
-                        <div class="col-1 offset-10 bg-white shadow-sm text-center py-1 rounded">
-                            <h4><i class="fa-solid fa-clipboard-list mr-2"></i>{{ count($order) }}</h4>
+                    <form action="{{ route('admin#changeStatus') }}" method="get" class="col-4 mb-3">
+                        @csrf
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <h4><i class="fa-solid fa-clipboard-list mr-2"></i>{{ count($order) }}</h4>
+                            </div>
+                            <select name="orderStatus" id="orderStatus" class="form-select col-5">
+                                <option value="">
+                                    All</option>
+                                <option value="0" @if (request('orderStatus') === '0') selected @endif>
+                                    Pending</option>
+                                <option value="1" @if (request('orderStatus') === '1') selected @endif>
+                                    Accept</option>
+                                <option value="2" @if (request('orderStatus') === '2') selected @endif>
+                                    Reject</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-dark"><i
+                                    class="fa-solid fa-magnifying-glass me-2"></i>Search</button>
                         </div>
-                    </div>
-
-                    <div class="d-flex mb-3">
-                        <label for="orderStatus" class="form-label mt-1 me-3">Order Status</label>
-                        <select id="orderStatus" class="form-control col-2">
-                            <option value="">
-                                All</option>
-                            <option value="0">
-                                Pending</option>
-                            <option value="1">
-                                Accept</option>
-                            <option value="2">
-                                Reject</option>
-                        </select>
-                    </div>
+                    </form>
                     @if (count($order) != 0)
                         <div class="table-responsive table-responsive-data2">
                             <table class="table table-data2">
@@ -68,7 +69,9 @@
                                             <td>{{ $o->user_id }}</td>
                                             <td>{{ $o->user_name }}</td>
                                             <td>{{ $o->created_at->format('F-j-Y') }}</td>
-                                            <td>{{ $o->order_code }}</td>
+                                            <td><a href="{{ route('admin#listInfo', $o->order_code) }}"
+                                                    class="text-primary text-decoration-none">{{ $o->order_code }}</a>
+                                            </td>
                                             <td class="amount">{{ $o->total_price }} kyats</td>
                                             <td>
                                                 <select name="status" class="form-select changeStatus">
@@ -105,70 +108,70 @@
 @section('scriptSection')
     <script>
         $(document).ready(function() {
-            $('#orderStatus').change(function() {
-                $status = $('#orderStatus').val()
+            // $('#orderStatus').change(function() {
+            //     $status = $('#orderStatus').val()
 
-                $orderStatus = "";
+            //     $orderStatus = "";
 
-                switch ($status) {
-                    case '0':
-                        $orderStatus = 0;
-                        break;
-                    case '1':
-                        $orderStatus = 1;
-                        break;
-                    case '2':
-                        $orderStatus = 2;
-                        break;
-                    default:
-                        $orderStatus = "";
-                        break;
-                }
+            //     switch ($status) {
+            //         case '0':
+            //             $orderStatus = 0;
+            //             break;
+            //         case '1':
+            //             $orderStatus = 1;
+            //             break;
+            //         case '2':
+            //             $orderStatus = 2;
+            //             break;
+            //         default:
+            //             $orderStatus = "";
+            //             break;
+            //     }
 
-                $.ajax({
-                    type: "get",
-                    url: "http://127.0.0.1:8000/order/ajax/status",
-                    data: {
-                        status: $orderStatus
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        $list = "";
-                        $.each(response, function(index, item) {
+            //     $.ajax({
+            //         type: "get",
+            //         url: "http://127.0.0.1:8000/order/ajax/status",
+            //         data: {
+            //             status: $orderStatus
+            //         },
+            //         dataType: "json",
+            //         success: function(response) {
+            //             $list = "";
+            //             $.each(response, function(index, item) {
 
-                            $dbDate = new Date(item.created_at);
-                            $months = ['January', 'February', 'March', 'April', 'May',
-                                'June', 'July', 'August', 'September', 'October',
-                                'November', 'December'
-                            ]
-                            $finalDate = $months[$dbDate.getMonth()] + "-" + $dbDate
-                                .getDate() + "-" + $dbDate.getFullYear();
+            //                 $dbDate = new Date(item.created_at);
+            //                 $months = ['January', 'February', 'March', 'April', 'May',
+            //                     'June', 'July', 'August', 'September', 'October',
+            //                     'November', 'December'
+            //                 ]
+            //                 $finalDate = $months[$dbDate.getMonth()] + "-" + $dbDate
+            //                     .getDate() + "-" + $dbDate.getFullYear();
 
-                            $list += `
-                            <tr class="tr-shadow my-5">
-                                 <input type="hidden" class="orderId" value="${item.id}">
-                                <td>${item.user_id}</td>
-                                <td>${item.user_name}</td>
-                                <td>${$finalDate }</td>
-                                <td>${ item.order_code }</td>
-                                <td>${ item.total_price } kyats</td>
-                                <td>
-                                    <select name="status" id="status" class="form-select changeStatus">
-                                        <option value="1" ${item.status === 0 ? "selected" : ""}>
-                                            Pending</option>
-                                        <option value="2" ${item.status === 1 ? "selected" : ""}>
-                                            Accept</option>
-                                        <option value="3" ${item.status === 2 ? "selected" : ""}>
-                                            Reject</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            `;
-                        })
-                        $('tbody').html($list);
-                    }
-                })
-            })
+            //                 $list += `
+        //                 <tr class="tr-shadow my-5">
+        //                      <input type="hidden" class="orderId" value="${item.id}">
+        //                     <td>${item.user_id}</td>
+        //                     <td>${item.user_name}</td>
+        //                     <td>${$finalDate }</td>
+        //                     <td>${ item.order_code }</td>
+        //                     <td>${ item.total_price } kyats</td>
+        //                     <td>
+        //                         <select name="status" id="status" class="form-select changeStatus">
+        //                             <option value="1" ${item.status === 0 ? "selected" : ""}>
+        //                                 Pending</option>
+        //                             <option value="2" ${item.status === 1 ? "selected" : ""}>
+        //                                 Accept</option>
+        //                             <option value="3" ${item.status === 2 ? "selected" : ""}>
+        //                                 Reject</option>
+        //                         </select>
+        //                     </td>
+        //                 </tr>
+        //                 `;
+            //             })
+            //             $('tbody').html($list);
+            //         }
+            //     })
+            // })
 
             $('.changeStatus').change(function() {
                 $currentStatus = $(this).val();
@@ -180,12 +183,16 @@
                     orderId: $orderId
                 };
 
+                console.log($data);
+
                 $.ajax({
                     type: "get",
                     url: "http://127.0.0.1:8000/order/ajax/change/status",
                     data: $data,
                     dataType: "json",
                 })
+
+                location.reload();
             })
         })
     </script>
