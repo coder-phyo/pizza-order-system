@@ -30,7 +30,6 @@ class AjaxController extends Controller
     public function addToCart(Request $request)
     {
         $data = $this->getOrderData($request);
-        logger($data);
         Cart::create($data);
         $response = [
             'message' => 'Add To Cart Complete',
@@ -87,5 +86,17 @@ class AjaxController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ];
+    }
+
+    // increase pizza view count
+    public function increaseViewCount(Request $request)
+    {
+        $pizza = Product::where('id', $request->productId)->first();
+
+        $viewCount = [
+            'view_count' => $pizza->view_count + 1
+        ];
+
+        Product::where('id', $request->productId)->update($viewCount);
     }
 }
