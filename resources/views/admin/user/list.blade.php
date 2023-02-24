@@ -126,7 +126,7 @@
 
                 $.ajax({
                     type: "get",
-                    url: "http://127.0.0.1:8000/user/ajax/change/role",
+                    url: "/user/ajax/change/role",
                     data: $data,
                     dataType: "json",
                 })
