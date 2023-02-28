@@ -81,6 +81,34 @@ class RouteController extends Controller
         return response()->json(["status" => false, "message" => "There is no Category..."], 200);
     }
 
+    // category details
+    public function categoryDetail($id)
+    {
+        $data = Category::where('id', $id)->first();
+
+        if (isset($data)) {
+            return response()->json(["status" => true, "category" => $data], 200);
+        }
+
+        return response()->json(["status" => false, "message" => "There is no Category..."], 500);
+    }
+
+    // update category
+    public function categoryUpdate(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $dbSource = Category::where('id', $categoryId)->first();
+
+        if (isset($dbSource)) {
+            $data = $this->getCategoryUpdateData($request);
+            Category::where('id', $categoryId)->update($data);
+            $response = Category::where('id', $categoryId)->first();
+            return response()->json(['status' => true, 'message' => 'update success...', 'response' => $response], 200);
+        }
+
+        return response()->json(['status' => false, 'message' => 'there is no category for update'], 500);
+    }
+
     // get contact data
     private function getContactData($request)
     {
@@ -88,6 +116,15 @@ class RouteController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'message' => $request->message
+        ];
+    }
+
+    // get category update data
+    private function getCategoryUpdateData($request)
+    {
+        return [
+            'name' => $request->name,
+            'updated_at' => Carbon::now()
         ];
     }
 }

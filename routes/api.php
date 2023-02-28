@@ -20,10 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // GET
-Route::get('pizza/data/list', [RouteController::class, 'pizzaDataList']);
+Route::get('pizza/data/list', [RouteController::class, 'pizzaDataList']); # READ
 
 // POST
-Route::post('create/category', [RouteController::class, 'categoryCreate']);
-Route::post('create/contact', [RouteController::class, 'createContact']);
+Route::post('create/category', [RouteController::class, 'categoryCreate']); # CREATE
+Route::post('create/contact', [RouteController::class, 'createContact']);   # CREATE
 
-Route::get('category/delete/{id}', [RouteController::class, 'categoryDelete']);
+Route::get('category/delete/{id}', [RouteController::class, 'categoryDelete']); # DELETE
+Route::get('pizza/data/list/{id}', [RouteController::class, 'categoryDetail']); # READ
+Route::post('category/update', [RouteController::class, 'categoryUpdate']);     # UPDATE
