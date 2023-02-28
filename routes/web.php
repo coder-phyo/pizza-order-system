@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\AjaxController;
@@ -25,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
     // admin
     Route::middleware('admin_auth')->group(function () {
-        // categiry
+        // category
         Route::group(['prefix' => 'category'], function () {
             Route::get('list', [CategoryController::class, 'list'])->name('category#list');
             Route::get('create/page', [CategoryController::class, 'createPage'])->name('category#createPage');
@@ -80,6 +81,13 @@ Route::middleware('auth')->group(function () {
             Route::get('list', [ControllersUserController::class, 'userList'])->name('admin#userList');
             Route::get('ajax/change/role', [ControllersUserController::class, 'changeRole'])->name('admin#userChangeRole');
         });
+
+        // contact list
+        Route::prefix('contact')->group(function () {
+            Route::get('list', [ContactController::class, 'contactList'])->name('admin#contactList');
+            Route::get('details/{id}', [ContactController::class, 'contactDetails'])->name('admin#contactDetails');
+            Route::get('delete/{id}', [ContactController::class, 'deleteContact'])->name('admin#deleteContact');
+        });
     });
 
     // user
@@ -112,6 +120,12 @@ Route::middleware('auth')->group(function () {
         Route::prefix('account')->group(function () {
             Route::get('change', [UserController::class, 'accountChangePage'])->name('user#accountChangePage');
             Route::post('change/{id}', [UserController::class, 'accountChange'])->name('user#accountChange');
+        });
+
+        // contact
+        Route::prefix('contact')->group(function () {
+            Route::get('create/page', [UserController::class, 'createPage'])->name('contact#createPage');
+            Route::post('create', [UserController::class, 'create'])->name('contact#create');
         });
 
         // ajax

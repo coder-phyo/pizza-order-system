@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Contact;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -119,6 +120,21 @@ class UserController extends Controller
         return view('user.main.history', compact('order'));
     }
 
+    // direct contact page
+    public function createPage()
+    {
+        return view('user.contact.contact');
+    }
+
+    // create contact
+    public function create(Request $request)
+    {
+        $this->contactValidationCheck($request);
+        $data = $this->requestContactData($request);
+        Contact::create($data);
+        return back()->with(['createSuccess' => 'Send Message Success...']);
+    }
+
     // password validation check
     private function passwordValidationCheck($request)
     {
@@ -153,5 +169,25 @@ class UserController extends Controller
             'address' => $request->address,
             'updated_at' => Carbon::now()
         ];
+    }
+
+    // request contact data
+    private function requestContactData($request)
+    {
+        return [
+            'name' => $request->userName,
+            'email' => $request->userEmail,
+            'message' => $request->userMessage
+        ];
+    }
+
+    // contact validation check
+    private function contactValidationCheck($request)
+    {
+        Validator::make($request->all(), [
+            'userName' => 'required',
+            'userEmail' => 'required',
+            'userMessage' => 'required'
+        ])->validate();
     }
 }

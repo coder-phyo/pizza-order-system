@@ -79,6 +79,11 @@
                                 <i class="fa-solid fa-users"></i>User List</a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('admin#contactList') }}">
+                                <i class="fa-solid fa-message"></i>Contact List</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
