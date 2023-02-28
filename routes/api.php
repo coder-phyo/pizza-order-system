@@ -19,4 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// GET
 Route::get('pizza/data/list', [RouteController::class, 'pizzaDataList']);
+
+// POST
+Route::post('create/category', [RouteController::class, 'categoryCreate']);
+Route::post('create/contact', [RouteController::class, 'createContact']);
+
+Route::get('category/delete/{id}', [RouteController::class, 'categoryDelete']);
