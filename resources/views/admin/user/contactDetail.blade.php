@@ -26,6 +26,9 @@
                                     <div class=" my-3 btn btn-sm btn-dark text-white"> <i
                                             class="fa-solid fa-envelope me-2"></i>
                                         {{ $contact->email }}</div>
+                                    <div class=" my-3 btn btn-sm btn-dark text-white"> <i
+                                            class="fa-solid fa-calendar me-2"></i>
+                                        {{ $contact->created_at->format('F-j-Y') }}</div>
                                     <p class=" my-3">
                                     <aside><i class="fa-solid fs-5 fa-message me-2"></i>Message</aside>
                                     {{ $contact->message }}

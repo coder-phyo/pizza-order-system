@@ -44,7 +44,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Message</th>
-
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +54,7 @@
                                             <td>{{ $c->name }}</td>
                                             <td>{{ $c->email }}</td>
                                             <td>{{ Str::words($c->message, 10, '...') }}</td>
+                                            <td>{{ $c->created_at->format('F-j-Y') }}</td>
                                             <td>
                                                 <div class="table-data-feature ms-3">
                                                     <a href="{{ route('admin#contactDetails', $c->id) }}">

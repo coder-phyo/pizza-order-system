@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('list', [ControllersUserController::class, 'userList'])->name('admin#userList');
             Route::get('ajax/change/role', [ControllersUserController::class, 'changeRole'])->name('admin#userChangeRole');
+            Route::get('delete/{id}', [ControllersUserController::class, 'userDelete'])->name('admin#userDelete');
         });
 
         // contact list

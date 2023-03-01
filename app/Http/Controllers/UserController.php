@@ -10,7 +10,11 @@ class UserController extends Controller
     // direct user list
     public function userList()
     {
-        $users = User::where('role', 'user')
+        $users = User::when(request('key'), function ($query) {
+            $query->where('name', 'like', '%' . request('key') . '%')
+                ->orWhere('address', 'like', '%' . request('key') . '%');
+        })
+            ->where('role', 'user')
             ->orderBy('created_at', 'desc')
             ->paginate(3);
 
@@ -23,5 +27,12 @@ class UserController extends Controller
         User::where('id', $request->id)->update([
             'role' => $request->role
         ]);
+    }
+
+    // delete user
+    public function userDelete($id)
+    {
+        User::where('id', $id)->delete();
+        return back()->with(['deleteSuccess' => 'Deleted Success...']);
     }
 }

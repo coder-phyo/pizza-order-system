@@ -15,7 +15,7 @@
                             </h4>
                         </div>
                         <div class="col-3 offset-4">
-                            <form action="{{ route('admin#orderList') }}" method="get" class="form-group">
+                            <form action="{{ route('admin#userList') }}" method="get" class="form-group">
                                 @csrf
                                 <div class="input-group">
                                     <input type="search" name="key" class="form-control" placeholder="Find..."
@@ -32,6 +32,15 @@
                         <div class="col-2 bg-white shadow-sm text-center py-1 rounded">
                             <h4><i class="fa-solid fa-users mr-2"></i>Total-{{ $users->total() }} </h4>
                         </div>
+                        @if (session('deleteSuccess'))
+                            <div class="col-5 offset-7 py-1">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <i class="fa-solid fa-circle-xmark"></i> {{ session('deleteSuccess') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     @if (count($users) != 0)
@@ -46,6 +55,7 @@
                                         <th>Phone</th>
                                         <th>Address</th>
                                         <th>Role</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,6 +97,16 @@
                                                     </option>
                                                 </select>
                                             </td>
+                                            <td>
+                                                <div class="table-data-feature ms-3">
+                                                    <a href="{{ route('admin#userDelete', $user->id) }}" class="ms-3">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Delete">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -98,7 +118,7 @@
 
                         </div>
                     @else
-                        <h1 class="text-muted text-center m-5">There is no Order Here!</h1>
+                        <h1 class="text-muted text-center m-5">There is no user here!</h1>
                     @endif
 
                     <!-- END DATA TABLE -->
